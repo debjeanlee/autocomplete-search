@@ -26,6 +26,14 @@ h1 {
 input {
   font-size: 1em;
 }
+a {
+  text-decoration: none;
+  color: var(--lgreen);
+}
+a:hover {
+  cursor: pointer;
+  color: var(--lightgray);
+}
 
 /* || Utilities  */
 .block {
@@ -141,6 +149,10 @@ li {
 
 .category__button:first-of-type {
   margin-left: 0;
+}
+
+.category__button:hover {
+  cursor: pointer;
 }
 
 .category__button:focus {

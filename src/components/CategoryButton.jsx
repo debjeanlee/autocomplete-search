@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CategoryButton({ category, setCurCategory }) {
+function CategoryButton({ category, setCurCategory, results }) {
 
     const changeCat = (e) => {
         setCurCategory(e.target.id)
@@ -9,7 +9,11 @@ function CategoryButton({ category, setCurCategory }) {
     return (
         <button onClick={changeCat} className="category__button" id={category}>
             {category}
-            <span className="stars__pill" id={category}>100k</span>
+            <span className="stars__pill" id={category}>
+                {category === 'Repositories' && results.repositories.data.total_count}
+                {category === 'Code' && results.code.data.total_count}
+                {category === 'Users' && results.users.data.total_count}
+            </span>
         </button>
     )
 }
