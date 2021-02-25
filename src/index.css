@@ -143,6 +143,10 @@ li {
   margin-left: 0;
 }
 
+.category__button:focus {
+  outline: none;
+}
+
 .stars__pill {
   margin-left: 0.8em;
   background-color: var(--gray);

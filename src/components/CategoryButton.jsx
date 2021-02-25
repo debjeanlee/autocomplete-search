@@ -1,10 +1,15 @@
 import React from 'react'
 
-function CategoryButton({ category }) {
+function CategoryButton({ category, setCurCategory }) {
+
+    const changeCat = (e) => {
+        setCurCategory(e.target.id)
+    }
+
     return (
-        <button className="category__button">
+        <button onClick={changeCat} className="category__button" id={category}>
             {category}
-            <label className="stars__pill">100k</label>
+            <span className="stars__pill" id={category}>100k</span>
         </button>
     )
 }

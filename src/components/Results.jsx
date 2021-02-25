@@ -1,26 +1,42 @@
-import React from 'react'
-import categoryNames from '../info/categoryNames';
-import tempResults from '../tempResults';
+import React, { useState, useEffect } from 'react'
 import CategoryButton from './CategoryButton';
 import ResultItem from './ResultItem';
 
-function Results({ data }) {
+function Results({ results }) {
 
-    const categories = categoryNames.map(category => {
-        return <CategoryButton category={category} />
-    })
+    const [curCategory, setCurCategory] = useState('Repositories')
 
-    const resultList = tempResults.map(el => {
-        return <ResultItem result={el} />
-    })
+    const [categoryArr, setCats] = useState([])
+
     
+    useEffect(() => {
+        const getCategories = () => {
+            let arr = [];
+            for (const el in results) {
+                arr.push(results[el])
+            }
+            setCats(arr)
+        }
+        getCategories();
+    }, [results])
+    console.log(curCategory, results.repositories.data)
+   
     return (
         <div className="results__container">
             <h2>Results</h2>
             <div className="row flex categories__container">
-              {categories}  
+              { categoryArr.length !== 0 ?
+              categoryArr.map((el, i) => {
+                  return <CategoryButton category={el.name} setCurCategory={setCurCategory} key={i}/> 
+              })
+              : '' }
             </div>
-            {resultList}
+            {curCategory === 'Repositories' && results.repositories.data.items !== undefined ? 
+            results.repositories.data.items.map(el => {
+                return <ResultItem result={el} />
+            })
+        :
+        ''}
         </div>
     )
 }
