@@ -10,6 +10,7 @@ function Search() {
     const [categoryArr, setCats] = useState([])
     const [curSearch, setCurSearch] = useState('')
     const [search, setSearch] = useState('');
+    const [autoResults, setAutoResults] = useState([])
     const [results, setResults] = useState({
         repositories: {
             name: 'Repositories',
@@ -60,13 +61,24 @@ function Search() {
         getCategories();
     }, [results])
 
-// useEffect(() => {
-//         SearchService.getRepositories(search).then(res => console.log(res)).catch(e => console.log(e))
-// }, [])
+    useEffect(() => {
+        setTimeout(() => {
+            SearchService.getAutoComplete(search)
+            .then(res => setAutoResults(res))
+            .catch(e => console.log(e))
+        }, 500);
+    }, [search])
+
+    console.log(autoResults)
 
     return (
         <div className="content-container">
-            <Form search={search} setSearch={setSearch} getResults={getResults} />
+            <Form 
+                search={search} 
+                setSearch={setSearch} 
+                getResults={getResults} 
+                autoResults={autoResults}
+            />
             { loading && <h1>Loading..</h1> }
             { curSearch !== '' && loading === false ?
             <Results 

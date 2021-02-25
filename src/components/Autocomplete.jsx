@@ -1,35 +1,24 @@
 import React from 'react'
 
-function Autocomplete() {
+function Autocomplete({ autoResults, setSearch }) {
 
-    const temp = [
-        {
-            name: "deb",
-            url: "https://github.com/debjeanlee"
-        },
-        {
-            name: "deb",
-            url: "https://github.com/debjeanlee"
-        },
-        {
-            name: "deb",
-            url: "https://github.com/debjeanlee"
-        },
-        {
-            name: "deb",
-            url: "https://github.com/debjeanlee"
-        }
-    ]
+    // const data = autoResults.map(el => {
+    //     return <li>{el.name} - {el.url}</li>
+    // })
+    const handleClick = (e) => {
+        setSearch(e.target.id);
+    }
 
-    const data = temp.map(el => {
-        return <li>{el.name} - {el.url}</li>
-    })
-
+    console.log(autoResults);
     return (
         <div className="autocomplete-results__container">
             <ul>
                 {/* autocomplete list */}
-                {data}
+                { autoResults !== undefined ? 
+                    autoResults.map((el,i) => {
+                        return <li id={el} key={i} onClick={handleClick}>{el}</li>
+                    })
+                : '' }
             </ul>
         </div>
     )

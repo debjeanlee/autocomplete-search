@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Autocomplete from './Autocomplete';
 
-function Form({ setSearch, getResults, search }) {
+function Form({ setSearch, getResults, search, autoResults }) {
     
     const changeHandler = (e) => { setSearch(e.target.value)}
     
@@ -20,7 +20,7 @@ function Form({ setSearch, getResults, search }) {
                 { search === '' ? 
                     ''
                     :
-                    <Autocomplete />
+                    <Autocomplete autoResults={autoResults} setSearch={setSearch} />
                  }
             </div>
         </div>
