@@ -1,22 +1,26 @@
 import React from 'react'
+import categoryNames from '../info/categoryNames';
 import tempResults from '../tempResults';
+import CategoryButton from './CategoryButton';
+import ResultItem from './ResultItem';
 
 function Results({ data }) {
 
-    const list = tempResults.map(el => {
-        return (
-            <div className="result-item__container">
-                <h4>{el.name}</h4>
-                <p>{el.url}</p>
-                <p>{el.desc}</p>
-            </div>
-        )
+    const categories = categoryNames.map(category => {
+        return <CategoryButton category={category} />
+    })
+
+    const resultList = tempResults.map(el => {
+        return <ResultItem result={el} />
     })
     
     return (
         <div className="results__container">
             <h2>Results</h2>
-            {list}
+            <div className="row flex categories__container">
+              {categories}  
+            </div>
+            {resultList}
         </div>
     )
 }
