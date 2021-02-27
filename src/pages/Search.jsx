@@ -27,7 +27,7 @@ function Search() {
         },
     });
 
-    const debouncedSearchTerm = useDebounce(search, 300);
+    const debouncedSearchTerm = useDebounce(search, 250);
 
     const getResults = (e) => {
         setLoading(true);

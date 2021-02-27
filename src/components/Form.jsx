@@ -20,7 +20,7 @@ function Form({ setSearch, getResults, search, autoResults }) {
                 { search === '' ? 
                     ''
                     :
-                    <Autocomplete autoResults={autoResults} setSearch={setSearch} />
+                    <Autocomplete autoResults={autoResults} setSearch={setSearch} getResults={getResults} />
                  }
             </div>
         </div>

@@ -16,7 +16,7 @@ function ResultItem({ result }) {
             <p>{ result.description !== undefined ? result.description : '' }</p>
             <p>{result.desc}</p>
             {result.text_matches.map((el, i) => {
-                return <blockquote key={i}><code>"..{el.fragment}"</code></blockquote>
+                return <blockquote key={i}><code>"{el.fragment}"</code></blockquote>
             })}
             <p>{result.stargazers_count === 0 
             || result.stargazers_count === undefined 

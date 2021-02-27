@@ -20,7 +20,7 @@ function Results({ results, categoryArr, setCurCategory, curCategory, curSearch 
             {/* ---- Repositories ---- */}
             {curCategory === 'Repositories' && results.repositories.data.items !== undefined ? 
             results.repositories.data.items.map(el => {
-                return <ResultItem result={el} key={el.id} />
+                return <ResultItem result={el} key={`${el.id}_${el.name}`} />
             }) : ''}
 
             {curCategory === 'Repositories' && results.repositories.data.items.length === 0 ? 
@@ -33,7 +33,7 @@ function Results({ results, categoryArr, setCurCategory, curCategory, curSearch 
 
             {curCategory === 'Code' && results.code.data.items !== undefined ? 
             results.code.data.items.map(el => {
-                return <ResultItem result={el} key={el.id} />
+                return <ResultItem result={el} key={`${el.id}_${el.name}`} />
             }) : ''}
             
             {/* ---- Users ---- */}
@@ -42,7 +42,7 @@ function Results({ results, categoryArr, setCurCategory, curCategory, curSearch 
             
             {curCategory === 'Users' && results.users.data.items !== undefined ? 
             results.users.data.items.map(el => {
-                return <ResultItem result={el} key={el.id} />
+                return <ResultItem result={el} key={`${el.id}_${el.name}`} />
             }) : ''}
         </div>
     )

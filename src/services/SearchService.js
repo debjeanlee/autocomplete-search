@@ -36,40 +36,25 @@ const SearchService = {
         }
     },
     getAutoComplete: async function(word){
-        const matches = [];
+        let matches = [];
 
         function getFirstFew(res, user){
             if (res.data.total_count === 0) return;
-            if (res.data.total_count > 100) {
-                for (let x = 0; x < 3; x++) {
-                    if(user){
-                        matches.push(res.data.items[x].login)
-                    } else {
-                        matches.push(res.data.items[x].name);
-                    }
-                }
+            if (user) {
+                let results = res.data.items.filter((item) => item.login.toLowerCase() !== word.toLowerCase());
+                results.forEach(el => {
+                    matches.push(el.login);
+                })
             } else {
-                // FIX THIS LOGIC
-                let twoPercent = Math.floor(parseInt(res.data.total_count) * 0.02)
-                for (let x = 0; x < twoPercent; x++) {
-                    if (user) {
-                        matches.push(res.data.items[x].login)
-                    } else {
-                        matches.push(res.data.items[x].name);
-                    }
-                }
-            }
+                let results = res.data.items.filter((item) => item.name.toLowerCase() !== word.toLowerCase());
+                results.forEach(el => {
+                    matches.push(el.name);
+                })
+            }           
         }
         try {
             await Axios.get(
-                `${process.env.REACT_APP_API}/repositories?q=${word}&sort=name&order=asc`,
-                    API_HEADER_CONFIG
-                )
-            .then(res => {
-                getFirstFew(res);
-            })
-            await Axios.get(
-                `${process.env.REACT_APP_API}/code?q=${word}&sort=name&order=asc`,
+                `${process.env.REACT_APP_API}/repositories?q=${word}&per_page=5`,
                     API_HEADER_CONFIG
                 )
             .then(res => {
@@ -77,14 +62,15 @@ const SearchService = {
             })
 
             await Axios.get(
-                `${process.env.REACT_APP_API}/users?q=${word}&sort=name&order=asc`,
+                `${process.env.REACT_APP_API}/users?q=${word}&per_page=5`,
                     API_HEADER_CONFIG
                 )
             .then(res => {
                 getFirstFew(res, true);
             })
-            
-            return matches;
+
+            const autocomplete = [...new Set(matches.sort())];
+            return autocomplete;
         } catch (error) {
             console.log(error)
         }
