@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Form from '../components/Form'
 import Results from '../components/Results'
 import SearchService from '../services/SearchService'
+import useDebounce from '../functions/useDebounce'
 
 function Search() {
 
@@ -25,6 +26,8 @@ function Search() {
             data: [],
         },
     });
+
+    const debouncedSearchTerm = useDebounce(search, 300);
 
     const getResults = (e) => {
         setLoading(true);
@@ -62,14 +65,14 @@ function Search() {
     }, [results])
 
     useEffect(() => {
-        setTimeout(() => {
-            SearchService.getAutoComplete(search)
+        if (debouncedSearchTerm) {
+            SearchService.getAutoComplete(debouncedSearchTerm)
             .then(res => setAutoResults(res))
             .catch(e => console.log(e))
-        }, 500);
-    }, [search])
-
-    console.log(autoResults)
+        } else {
+            setAutoResults([])
+        }
+    }, [debouncedSearchTerm])
 
     return (
         <div className="content-container">

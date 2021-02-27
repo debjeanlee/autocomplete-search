@@ -5,7 +5,7 @@ function ResultItem({ result }) {
     let date = `Last Updated: ${result.updated_at}`;
     
     return (
-        <div className="result-item__container" key={result.id}>
+        <div className="result-item__container">
             <h4>
                 <a href={result.html_url}>
                     { result.full_name !== undefined ? result.full_name : result.name }

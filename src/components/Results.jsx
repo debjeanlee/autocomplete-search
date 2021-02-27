@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import CategoryButton from './CategoryButton';
 import ResultItem from './ResultItem';
 
@@ -24,12 +24,12 @@ function Results({ results, categoryArr, setCurCategory, curCategory, curSearch 
             }) : ''}
 
             {curCategory === 'Repositories' && results.repositories.data.items.length === 0 ? 
-            <h3>No matches for this search..</h3> : ''}
+            <h3>No matches for this search in Repositories..</h3> : ''}
 
 
             {/* ---- Code ---- */}
             {curCategory === 'Code' && results.code.data.items.length === 0 ? 
-            <h3>No matches for this search..</h3> : ''}
+            <h3>No matches for this search in Code..</h3> : ''}
 
             {curCategory === 'Code' && results.code.data.items !== undefined ? 
             results.code.data.items.map(el => {
@@ -38,7 +38,7 @@ function Results({ results, categoryArr, setCurCategory, curCategory, curSearch 
             
             {/* ---- Users ---- */}
             {curCategory === 'Users' && results.users.data.items.length === 0 ? 
-            <h3>No matches for this search..</h3> : ''}
+            <h3>No user found..</h3> : ''}
             
             {curCategory === 'Users' && results.users.data.items !== undefined ? 
             results.users.data.items.map(el => {
