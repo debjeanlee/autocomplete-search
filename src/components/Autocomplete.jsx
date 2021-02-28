@@ -5,7 +5,7 @@ function Autocomplete({ autoResults, setSearch, getResults }) {
   
     const handleClick = (e) => {
         setSearch(e.target.id);
-        getResults(e.target.id);
+        getResults(e.target.id, e);
     }
 
     const handleKeyDown = (e) => {

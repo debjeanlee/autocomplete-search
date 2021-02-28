@@ -43,12 +43,12 @@ const SearchService = {
             if (user) {
                 let results = res.data.items.filter((item) => item.login.toLowerCase() !== word.toLowerCase());
                 results.forEach(el => {
-                    matches.push(el.login);
+                    matches.push(el.login.toLowerCase());
                 })
             } else {
                 let results = res.data.items.filter((item) => item.name.toLowerCase() !== word.toLowerCase());
                 results.forEach(el => {
-                    matches.push(el.name);
+                    matches.push(el.name.toLowerCase());
                 })
             }           
         }
@@ -69,7 +69,7 @@ const SearchService = {
                 getFirstFew(res, true);
             })
 
-            const autocomplete = [...new Set(matches.sort())];
+            const autocomplete = [...new Set(matches)].sort();
             return autocomplete;
         } catch (error) {
             console.log(error)

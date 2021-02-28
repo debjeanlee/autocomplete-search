@@ -23,11 +23,14 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
             name: 'Users',
             data: [],
         },
+        // before users
+        // commits, issues, packages, marketplace, topics, wikis, users
     });
 
     const debouncedSearchTerm = useDebounce(search, 250);
 
-    const getResults = (search) => {
+    const getResults = (search, e) => {
+        e.preventDefault()
         setLoading(true);
         Promise.allSettled([
             SearchService.getRepositories(search, 1), 
@@ -70,6 +73,7 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
         }
     }, [debouncedSearchTerm])
 
+    console.log(results)
     return (
         <div className="content-container">
             <Form 

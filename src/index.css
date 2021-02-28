@@ -84,9 +84,9 @@ a:hover {
 }
 
 input {
-  width: 100%;
+  position: absolute;
+  width: 40em;
   padding: 1em;
-  margin-left: 1em;
   border: 0.8px solid var(--lightgray);
   border-radius: 5px;
   outline: none;
@@ -95,7 +95,7 @@ input {
 .search__icon {
   color: var(--lightgray);
   position: relative;
-  right: 2em;
+  right: -48%;
 }
 
 .search__icon:hover {
@@ -111,13 +111,16 @@ input {
   z-index: 10;
 }
 .autocomplete-results__container {
-  margin: 0 auto;
+  margin: 1em auto;
   background-color: white;
-  width: 38em;
+  width: 42em;
+  border: 0.8px solid var(--lightgray);
+  border-top: 1px solid rgb(247, 247, 247);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 ul {
-  /* width: 100%; */
   margin: 0;
   padding: 0;
 }
@@ -245,10 +248,14 @@ li:focus {
   }
 
   .input__container {
-    width: 90vw;
+    width: 20em;
+  }
+
+  input {
+    width: 20em;
   }
 
   .autocomplete-results__container {
-    width: 90%;
+    width: 22em;
   }
 }

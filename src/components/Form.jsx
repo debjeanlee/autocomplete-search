@@ -9,7 +9,7 @@ function Form({ setSearch, getResults, search, autoResults }) {
     
     return (
         <div className="block search__wrapper">
-            <form onSubmit={getResults}>
+            <form onSubmit={(e) => getResults(search, e)}>
                 <div className="input__container">
                     <input type="text" placeholder="Search.." onChange={changeHandler} value={search} />
                     <FontAwesomeIcon onClick={getResults} className="search__icon" icon={faSearch} />
