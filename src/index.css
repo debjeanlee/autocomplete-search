@@ -148,6 +148,10 @@ li:focus {
   display: none;
 }
 
+.avatar {
+  width: 4em;
+  border-radius: 50%;
+}
 .category__button {
   padding: 0.6em 1em;
   margin: 0 1em;
@@ -167,7 +171,7 @@ li:focus {
   outline: none;
 }
 
-.stars__pill {
+.category__pill {
   margin-left: 0.8em;
   background-color: var(--gray);
   color: var(--white);
@@ -177,13 +181,53 @@ li:focus {
 }
 
 .results__container {
-  margin: 1em auto 0 auto;
+  margin: 2em auto 0 auto;
   width: 90%;
 }
 
 .result-item__container {
   padding: 0.5em 1em;
   border-bottom: 1px solid var(--lightgray);
+}
+
+.star-results__container {
+  margin-right: 1.5em;
+}
+
+.bottom-row {
+  color: var(--green);
+  margin: 2em auto 1em;
+}
+
+.star__icon {
+  font-size: 1em;
+  margin-right: 0.3em;
+}
+
+/* || Pagination */
+.page-number {
+  margin: 4em 0;
+  border: 1px solid var(--lightgray);
+  border-right: none;
+  border-radius: 2px;
+  padding: 1em 0.8em;
+  width: 1em;
+  text-align: center;
+}
+
+.page-number:last-of-type {
+  border-right: 2px solid var(--lightgray);
+}
+
+.page-number:hover {
+  background-color: var(--lightgray);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.active {
+  color: var(--lgreen);
+  font-weight: 800;
 }
 
 /* || Responsive */

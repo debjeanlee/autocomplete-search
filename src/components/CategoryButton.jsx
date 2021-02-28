@@ -9,7 +9,7 @@ function CategoryButton({ category, setCurCategory, results }) {
     return (
         <button onClick={changeCat} className="category__button" id={category}>
             {category}
-            <span className="stars__pill" id={category}>
+            <span className="category__pill" id={category}>
                 {category === 'Repositories' && results.repositories.data.total_count}
                 {category === 'Code' && results.code.data.total_count}
                 {category === 'Users' && results.users.data.total_count}

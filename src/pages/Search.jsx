@@ -4,13 +4,11 @@ import Results from '../components/Results'
 import SearchService from '../services/SearchService'
 import useDebounce from '../functions/useDebounce'
 
-function Search() {
+function Search({search, setSearch, curSearch, setCurSearch}) {
 
     const [loading, setLoading] = useState(false)
     const [curCategory, setCurCategory] = useState('Repositories')
     const [categoryArr, setCats] = useState([])
-    const [curSearch, setCurSearch] = useState('')
-    const [search, setSearch] = useState('');
     const [autoResults, setAutoResults] = useState([])
     const [results, setResults] = useState({
         repositories: {
@@ -29,16 +27,14 @@ function Search() {
 
     const debouncedSearchTerm = useDebounce(search, 250);
 
-    const getResults = (e) => {
+    const getResults = (search) => {
         setLoading(true);
-        e.preventDefault();
         Promise.allSettled([
-            SearchService.getRepositories(search), 
-            SearchService.getCode(search),
-            SearchService.getUsers(search),
+            SearchService.getRepositories(search, 1), 
+            SearchService.getCode(search, 1),
+            SearchService.getUsers(search, 1),
         ])
         .then(res => {
-            console.log("res[2]", res[2])
             setResults({...results, 
                 repositories: {...results.repositories, data: res[0].value},
                 code: {...results.code, data: res[1].value},
@@ -81,6 +77,7 @@ function Search() {
                 setSearch={setSearch} 
                 getResults={getResults} 
                 autoResults={autoResults}
+                setCurSearch={setCurSearch}
             />
             { loading && <h1>Loading..</h1> }
             { curSearch !== '' && loading === false ?
@@ -90,6 +87,7 @@ function Search() {
                 categoryArr={categoryArr} 
                 setCurCategory={setCurCategory} 
                 curCategory={curCategory} 
+                setResults={setResults}
             />
             : '' }
         </div>

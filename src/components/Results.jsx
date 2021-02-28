@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import CategoryButton from './CategoryButton';
+import Pagination from './Pagination';
 import ResultItem from './ResultItem';
 
-function Results({ results, categoryArr, setCurCategory, curCategory, curSearch }) {
+function Results({ results, categoryArr, setCurCategory, curCategory, curSearch, setResults }) {
+
+    const [page, setPage] = useState(1);
 
     return (
         <div className="results__container">
@@ -19,8 +22,8 @@ function Results({ results, categoryArr, setCurCategory, curCategory, curSearch 
 
             {/* ---- Repositories ---- */}
             {curCategory === 'Repositories' && results.repositories.data.items !== undefined ? 
-            results.repositories.data.items.map(el => {
-                return <ResultItem result={el} key={`${el.id}_${el.name}`} />
+            results.repositories.data.items.map((el, i) => {
+                return <ResultItem result={el} key={`${i}_${el.id}_${el.name}`} />
             }) : ''}
 
             {curCategory === 'Repositories' && results.repositories.data.items.length === 0 ? 
@@ -32,8 +35,8 @@ function Results({ results, categoryArr, setCurCategory, curCategory, curSearch 
             <h3>No matches for this search in Code..</h3> : ''}
 
             {curCategory === 'Code' && results.code.data.items !== undefined ? 
-            results.code.data.items.map(el => {
-                return <ResultItem result={el} key={`${el.id}_${el.name}`} />
+            results.code.data.items.map((el, i) => {
+                return <ResultItem result={el} key={`${i}_${el.id}_${el.name}`} code={true} />
             }) : ''}
             
             {/* ---- Users ---- */}
@@ -41,9 +44,10 @@ function Results({ results, categoryArr, setCurCategory, curCategory, curSearch 
             <h3>No user found..</h3> : ''}
             
             {curCategory === 'Users' && results.users.data.items !== undefined ? 
-            results.users.data.items.map(el => {
-                return <ResultItem result={el} key={`${el.id}_${el.name}`} />
+            results.users.data.items.map((el,i) => {
+                return <ResultItem result={el} key={`${i}_${el.id}_${el.name}`} />
             }) : ''}
+            <Pagination page={page} setPage={setPage} results={results} curCategory={curCategory} setResults={setResults} />
         </div>
     )
 }
