@@ -5,11 +5,11 @@ import ResultItem from './ResultItem';
 
 function Results({ results, categoryArr, setCurCategory, curCategory, curSearch, setResults }) {
 
-    const [page, setPage] = useState(1);
+    const [curPage, setCurPage] = useState(1);
 
     return (
         <div className="results__container">
-            <h2>Results for {curSearch} in {curCategory}</h2>
+            <h2 className="result-title">Results for "{curSearch}" in {curCategory}..</h2>
 
             {/* ---- Categories ---- */}
             <div className="row flex categories__container">
@@ -23,31 +23,40 @@ function Results({ results, categoryArr, setCurCategory, curCategory, curSearch,
             {/* ---- Repositories ---- */}
             {curCategory === 'Repositories' && results.repositories.data.items !== undefined ? 
             results.repositories.data.items.map((el, i) => {
-                return <ResultItem result={el} key={`${i}_${el.id}_${el.name}`} />
+                return <ResultItem curCategory={curCategory} result={el} key={`${i}_${el.id}_${el.name}`} />
             }) : ''}
 
             {curCategory === 'Repositories' && results.repositories.data.items.length === 0 ? 
-            <h3>No matches for this search in Repositories..</h3> : ''}
+            <h3>No matches for "{curSearch}" in Repositories..</h3> : ''}
 
 
             {/* ---- Code ---- */}
             {curCategory === 'Code' && results.code.data.items.length === 0 ? 
-            <h3>No matches for this search in Code..</h3> : ''}
+            <h3>No matches for "{curSearch}" in Code..</h3> : ''}
 
             {curCategory === 'Code' && results.code.data.items !== undefined ? 
             results.code.data.items.map((el, i) => {
-                return <ResultItem result={el} key={`${i}_${el.id}_${el.name}`} code={true} />
+                return <ResultItem curCategory={curCategory} result={el} key={`${i}_${el.id}_${el.name}`} code={true} />
+            }) : ''}
+            
+            {/* ---- Issues ---- */}
+            {curCategory === 'Issues' && results.issues.data.items.length === 0 ? 
+            <h3>No Issues named "{curSearch}" found..</h3> : ''}
+
+            {curCategory === 'Issues' && results.issues.data.items !== undefined ? 
+            results.issues.data.items.map((el, i) => {
+                return <ResultItem curCategory={curCategory} result={el} key={`${i}_${el.id}_${el.name}`} code={true} />
             }) : ''}
             
             {/* ---- Users ---- */}
             {curCategory === 'Users' && results.users.data.items.length === 0 ? 
-            <h3>No user found..</h3> : ''}
+            <h3>User "{curSearch}" not found..</h3> : ''}
             
             {curCategory === 'Users' && results.users.data.items !== undefined ? 
             results.users.data.items.map((el,i) => {
-                return <ResultItem result={el} key={`${i}_${el.id}_${el.name}`} />
+                return <ResultItem curCategory={curCategory} result={el} key={`${i}_${el.id}_${el.name}`} />
             }) : ''}
-            <Pagination page={page} setPage={setPage} results={results} curCategory={curCategory} setResults={setResults} />
+            {/* <Pagination curPage={curPage} setCurPage={setCurPage} results={results} curCategory={curCategory} setResults={setResults} /> */}
         </div>
     )
 }

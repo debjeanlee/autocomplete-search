@@ -19,6 +19,10 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
             name: 'Code',
             data: [],
         },
+        issues: {
+            name: 'Issues',
+            data: []
+        },
         users: {
             name: 'Users',
             data: [],
@@ -32,16 +36,23 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
     const getResults = (search, e) => {
         e.preventDefault()
         setLoading(true);
-        Promise.allSettled([
-            SearchService.getRepositories(search, 1), 
-            SearchService.getCode(search, 1),
-            SearchService.getUsers(search, 1),
-        ])
+        let categories = []
+        for (const cat in results) {
+            categories.push(SearchService.getSearch(search, cat, 1))
+        }
+        // Promise.allSettled([
+        //     SearchService.getSearch(search, 'repositories', 1), 
+        //     // SearchService.getRepositories(search, 1), 
+        //     SearchService.getCode(search, 1),
+        //     SearchService.getUsers(search, 1),
+        // ])
+        Promise.allSettled(categories)
         .then(res => {
             setResults({...results, 
                 repositories: {...results.repositories, data: res[0].value},
                 code: {...results.code, data: res[1].value},
-                users: {...results.users, data: res[2].value},
+                issues: {...results.issues, data: res[2].value},
+                users: {...results.users, data: res[3].value},
             })
         })
         .then(() => setLoading(false))
@@ -52,6 +63,7 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
         setSearch('');
     }
     
+    console.log(results)
     useEffect(() => {
         const getCategories = () => {
             let arr = [];
@@ -73,7 +85,6 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
         }
     }, [debouncedSearchTerm])
 
-    console.log(results)
     return (
         <div className="content-container">
             <Form 

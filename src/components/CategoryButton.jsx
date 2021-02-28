@@ -12,6 +12,7 @@ function CategoryButton({ category, setCurCategory, results }) {
             <span className="category__pill" id={category}>
                 {category === 'Repositories' && results.repositories.data.total_count}
                 {category === 'Code' && results.code.data.total_count}
+                {category === 'Issues' && results.issues.data.total_count}
                 {category === 'Users' && results.users.data.total_count}
             </span>
         </button>

@@ -1,37 +1,53 @@
 import React, { useState, useEffect } from 'react'
 
-function Pagination({ page, setPage, results, curCategory, setResults }) {
+function Pagination({ curPage, setCurPage, results, curCategory, setResults }) {
 
     const [totalPages, setTotalPages] = useState();
-    const [pageNos, setPageNos] = useState('');
+    const [categoryItemCount, setCategoryItemCount] = useState({});
 
-    const getPages = () => {
+    const getNoPages = () => {
+        if (categoryItemCount >= 1000) {
+            setTotalPages(100);
+        } else if (categoryItemCount <= 10) {
+            setTotalPages(null)
+        } else {
+            setTotalPages(Math.ceil(categoryItemCount/10))
+        }
+    }
+    
+    const getItemCount = () => {
         switch (curCategory) {
             case 'Repositories':
-                setTotalPages(Math.ceil(results.repositories.data.total_count/30))
+                setCategoryItemCount(results.repositories.data.total_count);
                 break;
             case 'Code':
-                setTotalPages(Math.ceil(results.code.data.total_count/30))
+                setCategoryItemCount(results.code.data.total_count);
                 break;
             case 'Users':
-                setTotalPages(Math.ceil(results.users.data.total_count/30))
+                setCategoryItemCount(results.users.data.total_count);
                 break;
-            default:
-                setTotalPages(1)
+        
+            default: 
                 break;
         }
     }
 
+    const handleClick = (e) => {
+        
+    }
+
+    
     useEffect(() => {
-        getPages();
-    }, [page])
+        getItemCount()
+        getNoPages()
+    }, [curCategory])
 
     return (
         <div className="row flex">
             <div className="page-number">&lt;&lt;</div>
             <div className="page-number">&lt;</div>
-           
-                <div className="page-number active">1</div>
+
+                <div className="page-number active">{totalPages}</div>
                 <div className="page-number">2</div>
                 <div className="page-number">3</div>
              
