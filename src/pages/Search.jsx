@@ -63,7 +63,6 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
         setSearch('');
     }
     
-    console.log(results)
     useEffect(() => {
         const getCategories = () => {
             let arr = [];
