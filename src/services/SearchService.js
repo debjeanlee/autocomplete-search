@@ -37,7 +37,7 @@ const SearchService = {
         }
         try {
             await Axios.get(
-                `${process.env.REACT_APP_API}/repositories?q=${word}&per_page=5`,
+                `${process.env.REACT_APP_API}/repositories?q=${word}&per_page=8`,
                     API_HEADER_CONFIG
                 )
             .then(res => {
@@ -45,19 +45,11 @@ const SearchService = {
             })
 
             await Axios.get(
-                `${process.env.REACT_APP_API}/users?q=${word}&per_page=5`,
+                `${process.env.REACT_APP_API}/users?q=${word}&per_page=8`,
                     API_HEADER_CONFIG
                 )
             .then(res => {
                 getFirstFew(res, 'user');
-            })
-
-            await Axios.get(
-                `${process.env.REACT_APP_API}/issues?q=${word}&per_page=5`,
-                    API_HEADER_CONFIG
-                )
-            .then(res => {
-                getFirstFew(res, 'issues');
             })
 
             const autocomplete = [...new Set(matches)].sort();
