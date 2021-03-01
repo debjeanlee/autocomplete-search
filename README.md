@@ -10,3 +10,5 @@ Includes searches for:
 - Users
 
 Chose to leave out the fields that are under preview.
+
+Autocomplete results based on top 8 matches from API results, then sorted with duplicates removed.
