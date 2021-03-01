@@ -16,7 +16,6 @@ function Form({ setSearch, getResults, search, autoResults }) {
                 </div>
             </form>
             <div className="autocomplete-results__wrapper">
-                {/* REPLACE W SEARCH RESULTS */}
                 { search === '' ? 
                     ''
                     :

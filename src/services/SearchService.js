@@ -5,7 +5,7 @@ const SearchService = {
     getSearch: async function(word, category, page){
         try {
             const res = await Axios.get(
-                `${process.env.REACT_APP_API}/${category}?q=${word}&page=${page}`,
+                `${process.env.REACT_APP_API}/${category}?q=${word}&page=${page}&per_page=20`,
                 API_HEADER_CONFIG
             )
             return res.data;
@@ -19,17 +19,17 @@ const SearchService = {
         function getFirstFew(res, category){
             if (res.data.total_count === 0) return;
             if (category === 'user') {
-                let results = res.data.items.filter((item) => item.login.toLowerCase() !== word.toLowerCase());
+                let results = res.data.items.filter((item) => item.login.toLowerCase().slice(0, word.length) === word.toLowerCase());
                 results.forEach(el => {
                     matches.push(el.login.toLowerCase());
                 })
             } else if(category === 'issues') {
-                let results = res.data.items.filter((item) => item.title.toLowerCase() !== word.toLowerCase());
+                let results = res.data.items.filter((item) => item.title.toLowerCase().slice(0, word.length) === word.toLowerCase());
                 results.forEach(el => {
                     matches.push(el.title.toLowerCase());
                 })          
             } else {
-                let results = res.data.items.filter((item) => item.name.toLowerCase() !== word.toLowerCase());
+                let results = res.data.items.filter((item) => item.name.toLowerCase().slice(0, word.length) === word.toLowerCase());
                 results.forEach(el => {
                     matches.push(el.name.toLowerCase());
                 })
