@@ -1,5 +1,7 @@
 # Autocomplete Search Bar with Github API
 
+Live preview: https://autocomplete-search.debjeanlee.com/
+
 Implementing an autocomplete search bar in a single page React app, using the Github API.
 
 Includes searches for:
