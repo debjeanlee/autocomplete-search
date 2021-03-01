@@ -1,12 +1,17 @@
 import React from 'react'
 
-function CategoryButton({ category, setCurCategory, results, setCurPage, setDisplayedResults, totalCount, pageOneResults }) {
+function CategoryButton({ category, setItemCount, 
+    setCurCategory, setCurPage, setDisplayedResults, 
+    totalCount, pageOneResults }) {
 
     const changeCat = (e) => {
         setCurCategory(e.target.id)
         setDisplayedResults(pageOneResults);
         setCurPage(1)
+        setItemCount(totalCount)
     }
+
+    console.log(totalCount, 'totalcount')
 
     return (
         <button onClick={changeCat} className="category__button" id={category}>

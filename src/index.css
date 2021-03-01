@@ -77,6 +77,11 @@ a:hover {
   display: block;
 }
 
+.loading {
+  text-align: center;
+  margin: 5em auto;
+}
+
 /* || Search Container */
 .search__wrapper {
   position: relative;
@@ -205,6 +210,10 @@ li:focus {
   border-bottom: 1px solid var(--lightgray);
 }
 
+.result-item__container:last-of-type {
+  margin-bottom: 3em;
+}
+
 /* ----- repositories ----- */
 .star-results__container {
   margin-right: 1.5em;
@@ -238,6 +247,11 @@ li:focus {
 }
 
 /* || Pagination */
+.page-number__container {
+  justify-content: center;
+  margin-bottom: 3em;
+}
+
 .page-number {
   margin: 4em 0;
   border: 1px solid var(--lightgray);

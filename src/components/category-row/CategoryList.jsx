@@ -2,9 +2,8 @@ import React from 'react'
 import CategoryButton from './CategoryButton'
 
 
-function CategoryList({ categoryArr, setDisplayedResults, setCurCategory, setCurPage }) {
+function CategoryList({ categoryArr, setDisplayedResults, setCurCategory, setCurPage, setItemCount }) {
     
-    console.log(categoryArr)
     return (
         <div className="row flex categories__container">
               { categoryArr.length !== 0 ?
@@ -16,6 +15,7 @@ function CategoryList({ categoryArr, setDisplayedResults, setCurCategory, setCur
                             setCurCategory={setCurCategory} 
                             setCurPage={setCurPage} 
                             pageOneResults={el.data.items}
+                            setItemCount={setItemCount}
                             key={i}
                             /> 
               })

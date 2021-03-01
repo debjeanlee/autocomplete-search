@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import Form from '../components/form/Form'
-import Results from '../components/results/Results'
 import SearchService from '../services/SearchService'
 import useDebounce from '../functions/useDebounce'
 import ResultList from '../components/results/ResultList'
+import Pagination from '../components/utility/Pagination'
 
 function Search({search, setSearch, curSearch, setCurSearch}) {
 
     const [loading, setLoading] = useState(false)
     const [curCategory, setCurCategory] = useState('Repositories')
+    const [curCatItemCount, setItemCount] = useState(null)
     const [categoryArr, setCats] = useState([])
     const [curPage, setCurPage] = useState(1);
     const [displayedResults, setDisplayedResults] = useState([])
     const [autoResults, setAutoResults] = useState([])
+    const [totalPages, setTotalPages] = useState(1)
     const [pageOneResults, setPageOneResults] = useState({
         repositories: {
             name: 'Repositories',
@@ -51,6 +53,7 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
                 users: {...pageOneResults.users, data: res[3].value},
             })
             setDisplayedResults(res[0].value.items)
+            setItemCount(res[0].value.total_count);
         })
         .then(() => setLoading(false))
         .catch(e => console.log(e))
@@ -81,6 +84,25 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
         }
     }, [debouncedSearchTerm])
 
+
+    const getNoPages = (count) => {
+        if (count <= 20) {
+            return setTotalPages(1);
+        } else if (count > 1000) {
+           return setTotalPages(50);
+        } else {
+            const noPages = Math.ceil((parseInt(curCatItemCount)/20));
+            return setTotalPages(noPages);
+        }
+    }
+
+    useEffect(() => {
+        getNoPages(curCatItemCount);
+    }, [curCatItemCount, curPage, totalPages])
+  
+    console.log('curpage', curPage, curCategory, 'total',totalPages)
+
+
     return (
         <div className="content-container">
             <Form 
@@ -90,20 +112,7 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
                 autoResults={autoResults}
                 setCurSearch={setCurSearch}
             />
-            { loading && <h1>Loading..</h1> }
-            {/* { curSearch !== '' && loading === false ?
-            <Results 
-                curSearch={curSearch}
-                results={pageOneResults} 
-                categoryArr={categoryArr} 
-                setCurCategory={setCurCategory} 
-                curCategory={curCategory} 
-                setResults={setPageOneResults}
-                setCurPage={setCurPage}
-                displayedResults={displayedResults}
-                setDisplayedResults={setDisplayedResults}
-            />
-            : '' } */}
+            { loading && <h2 className="loading">Loading..</h2> }
             { curSearch !== '' && loading === false ?
             <ResultList 
                 curSearch={curSearch}
@@ -113,8 +122,21 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
                 setCurCategory={setCurCategory}
                 setCurPage={setCurPage}
                 displayedResults={displayedResults}
+                setItemCount={setItemCount}
             />
             : '' }
+            { !loading && curSearch !== '' &&
+                <Pagination 
+                    curPage={curPage}
+                    categoryArr={categoryArr}
+                    setCurPage={setCurPage}
+                    setDisplayedResults={setDisplayedResults}
+                    curSearch={curSearch}
+                    category={curCategory}
+                    setLoading={setLoading}
+                    totalPages={totalPages}
+                />
+            }
         </div>
     )
 }
