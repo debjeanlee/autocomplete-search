@@ -11,8 +11,6 @@ function CategoryButton({ category, setItemCount,
         setItemCount(totalCount)
     }
 
-    console.log(totalCount, 'totalcount')
-
     return (
         <button onClick={changeCat} className="category__button" id={category}>
             {category}

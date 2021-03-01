@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import Form from '../components/form/Form'
-import SearchService from '../services/SearchService'
-import useDebounce from '../functions/useDebounce'
-import ResultList from '../components/results/ResultList'
-import Pagination from '../components/utility/Pagination'
+import Form from '../form/Form'
+import SearchService from '../../services/SearchService'
+import useDebounce from '../../functions/useDebounce'
+import ResultList from '../results/ResultList'
+import Pagination from '../utility/Pagination'
 
 function Search({search, setSearch, curSearch, setCurSearch}) {
 
@@ -84,6 +84,7 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
         }
     }, [debouncedSearchTerm])
 
+    useEffect(() => {
 
     const getNoPages = (count) => {
         if (count <= 20) {
@@ -96,12 +97,9 @@ function Search({search, setSearch, curSearch, setCurSearch}) {
         }
     }
 
-    useEffect(() => {
         getNoPages(curCatItemCount);
     }, [curCatItemCount, curPage, totalPages])
   
-    console.log('curpage', curPage, curCategory, 'total',totalPages)
-
 
     return (
         <div className="content-container">
