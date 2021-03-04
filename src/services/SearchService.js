@@ -45,6 +45,13 @@ const SearchService = {
             })
 
             await Axios.get(
+                `${process.env.REACT_APP_API}/issues?q=${word}&per_page=8`,
+                    API_HEADER_CONFIG
+                )
+            .then(res => {
+                getFirstFew(res, 'issues');
+            })
+            await Axios.get(
                 `${process.env.REACT_APP_API}/users?q=${word}&per_page=8`,
                     API_HEADER_CONFIG
                 )
